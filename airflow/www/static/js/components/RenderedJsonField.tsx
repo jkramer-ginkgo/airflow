@@ -36,7 +36,7 @@ interface Props extends FlexProps {
   jsonProps?: Omit<ReactJsonViewProps, "src">;
 }
 
-const JsonParse = (content: string | object) => {
+const JsonParse = (content: any) => {
   let contentJson = null;
   let contentFormatted = "";
   let isJson = false;
@@ -47,7 +47,7 @@ const JsonParse = (content: string | object) => {
       contentJson = content;
     }
     contentFormatted = JSON.stringify(contentJson, null, 4);
-    isJson = true;
+    isJson = contentJson != null && typeof contentJson === "object"; // ensure numbers/bool are not treated as JSON
   } catch (e) {
     // skip
   }
